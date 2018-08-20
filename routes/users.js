@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var userModel = require('../models/userModel');
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.ObjectId;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -34,7 +36,8 @@ router.post('/add', function(req, res, next) {
 });
 
 router.get('edit/:id', function(req, res, next) {
-  userModel.findOne({_id: id}, function (err, data) {
+  userModel.findById(req.params.id, function (err, data) {
+    console.log(data)
     res.render('UserEdit', {
       user: data
     })
